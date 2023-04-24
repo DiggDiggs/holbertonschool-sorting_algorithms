@@ -1,15 +1,16 @@
 #ifndef SORT_H
 #define SORT_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
-
+#include <string.h>
+#include <stdbool.h>
 /**
- * struct listint_s - Doubly linked list node
+ * struct listint_s - Doubly linked lit node
  *
  * @n: Integer stored in the node
- * @prev: Pointer to the previous element of the list
- * @next: Pointer to the next element of the list
+ * @prev: Pointer to the previous element
+ * @next: Pointer to the next element
  */
 typedef struct listint_s
 {
@@ -18,17 +19,35 @@ typedef struct listint_s
 	struct listint_s *next;
 } listint_t;
 
-
+/* Prototypes */
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
+void move_to_loc(listint_t *nodeToMove, listint_t *prevNode);
+void partition(int *array, int low, int high, size_t size);
+void move_to_head(listint_t *head, listint_t *nodeToMove);
 
-void swap_list(listint_t *nodeA, listint_t *nodeB);
-void swap_array(int *array, size_t s, int a, int b);
+void array_swap(int *array, int a, int b);
+void list_swap(listint_t **list);
 
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
-void quick_sort_r(int *, size_t, int *, size_t);
+
+void merge_sort(int *array, size_t size);
+void merge(int *A, int *B, int left, int mid, int right);
+void split(int *A, int *B, int left, int right);
+void print_subarray(int *arr, int start, int end);
+
+void heap_sort(int *array, size_t size);
+void heapify(int *array, int i, int len, size_t size);
+void swap(int *a, int *b);
+int iRightChild(int i);
+int iLeftChild(int i);
+int iParent(int i);
+
+int max_val(int *arr, int size);
+void count_sort(int *in_arr, int in_size, int place);
+void radix_sort(int *array, size_t size);
 
 #endif

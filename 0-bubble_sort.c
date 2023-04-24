@@ -1,45 +1,45 @@
 #include "sort.h"
 
 /**
- * bubble_sort -Sorts with Bubble Sort
- * @array:Array to sort
- * @size: size of array
+ * array_swap - swaps two integers in an array
+ * @array: array to be sorted
+ * @a: index of first integer
+ * @b: index of second integer
+ *
+ * Return: void
+ */
+void array_swap(int *array, int a, int b)
+{
+	int temp;
+
+	temp = array[a];
+	array[a] = array[b];
+	array[b] = temp;
+}
+
+/**
+ * bubble_sort - sort int arr in ascending order using bubble sort
+ * @array: array to sort
+ * @size: number of elements in array
  */
 void bubble_sort(int *array, size_t size)
 {
-	/*
-	 *Start at index 0,
-	 * Go until index size-2(zero index, comparing to index + 1)
-	 * if index is > index + 1 :  Swap;
-	 */
-	size_t index, counterIndex;
+	unsigned int i, newnum, temp;
 
-	for (counterIndex = 1; counterIndex != 0;)
-	{/* For Each Row*/
-		for (index = 0, counterIndex = 0; index < size - 1; index++)
+	if (size < 2)
+		return;
+
+	do {
+		newnum = 0;
+		for (i = 1; i < size; i++)
 		{
-			if (array[index] > array[index + 1])
+			if (array[i - 1] > array[i])
 			{
-				swap_array(array, size, index, index + 1);
-				counterIndex++;
+				array_swap(array, i - 1, i);
+				newnum = i;
+				print_array(array, size);
 			}
 		}
-	}
-}
-
-
-/**
- * swap_array - common function to swap two array elements
- * @array: Array to manipulate
- * @s: Size of array
- * @a: index of first element
- * @b: index of second element
- */
-void swap_array(int *array, size_t s, int a, int b)
-{
-	int t = array[a];
-
-	array[a] = array[b];
-	array[b] = t;
-	print_array(array, s);
+		temp = newnum;
+	} while (temp >= 1);
 }

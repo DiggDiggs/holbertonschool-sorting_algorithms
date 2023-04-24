@@ -1,43 +1,47 @@
 #include "sort.h"
 
-void selection_sort(int arr[], int n) {
-    // selection sort algorithm using swap_array function
-}
-
-
 /**
- * swap_array - common function to swap two array elements
- * @array: Array to manipulate
- * @s: Size of array
- * @a: index of first element
- * @b: index of second element
- */
-void swap_array(int *array, size_t s, int a, int b)
-{
-	int t = array[a];
-
-	array[a] = array[b];
-	array[b] = t;
-	print_array(array, s);
-}
-
-/**
- * selection_sort - Sort Array with Selection Sort
- * @array: Array to sort
+ * selection_sort - sort array with selection sort alg
+ * @array: array to sort
  * @size: size of array
+ * Return: void
  */
 void selection_sort(int *array, size_t size)
 {
-	int min, index, counterIndex;
+	size_t i = 0, j;
+	int temp = 0;
+	int temp_i = 0;
+	int flag = 0;
 
-	for (counterIndex = 0; counterIndex < (int)size - 1; counterIndex++)
+	while (i < (size - 1))
 	{
-		for (index = min = counterIndex; index < (int)size; index++)
+		flag = 0;
+		for (j = i + 1 ; j < size ; j++)
 		{
-			if (array[min] > array[index])
-				min = index;
+			if (flag == 0)
+			{
+				if (array[i] > array[j])
+				{
+					flag = 1;
+					temp = array[j];
+					temp_i = j;
+				}
+			}
+			else
+			{
+				if (temp > array[j])
+				{
+					temp = array[j];
+					temp_i = j;
+				}
+			}
 		}
-		if (counterIndex != min)
-			swap_array(array, size, counterIndex, min);
+		if (flag == 1)
+		{
+			array[temp_i] = array[i];
+			array[i] = temp;
+			print_array(array, size);
+		}
+		i++;
 	}
 }

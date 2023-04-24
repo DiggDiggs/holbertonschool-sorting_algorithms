@@ -1,31 +1,38 @@
 #include "sort.h"
 
 /**
- * swap_list - Swap two nodes
- * @nodeA: First node to swap
- * @nodeB: Second Node to swap
+ * insertion_sort_list - sort doubly linked list insertion style
+ * @list: list to sort
+ * Return: void
  */
-void swap_list(listint_t *nodeA, listint_t *nodeB)
+void insertion_sort_list(listint_t **list)
 {
-	listint_t *placeholder;
+	listint_t *node = NULL, *tmp = NULL;
 
-	placeholder = nodeA->next;
-	nodeA->next = nodeB->next;
-	nodeB->next = placeholder;
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
+		return;
 
-	if (nodeA->next)
-		nodeA->next->prev = nodeA;
-	if (nodeB->next)
-		nodeB->next->prev = nodeB;
-	placeholder = nodeA->prev;
-	nodeA->prev = nodeB->prev;
-	nodeB->prev = placeholder;
-
-	if (nodeA->prev)
-		nodeA->prev->next = nodeA;
-	if (nodeB->prev)
-		nodeB->prev->next = nodeB;
-	while (placeholder->prev)
-		placeholder = placeholder->prev;
-	print_list(placeholder);
+	node = *list;
+	node = node->next;
+	while (node)
+	{
+		while (node->prev && node->n < (node->prev)->n)
+		{
+			tmp = node;
+			if (node->next)
+				(node->next)->prev = tmp->prev;
+			(node->prev)->next = tmp->next;
+			node = node->prev;
+			tmp->prev = node->prev;
+			tmp->next = node;
+			if (node->prev)
+				(node->prev)->next = tmp;
+			node->prev = tmp;
+			if (tmp->prev == NULL)
+				*list = tmp;
+			print_list(*list);
+			node = node->prev;
+		}
+		node = node->next;
+	}
 }
